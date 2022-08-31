@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package Capa_Vista;
-import Capa_Controlador.Validar_Rut;
+
 import Capa_Modelo.TextPrompt;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -20,7 +19,7 @@ public class Vista_Inicial extends javax.swing.JFrame {
      */
     public Vista_Inicial() {
         initComponents();
-        TextPrompt textP = new TextPrompt("sin puntos, ni dv", txt_Rut);
+        TextPrompt textP = new TextPrompt("sin puntos, con guión", txt_Rut);
     }
 
     /**
@@ -73,33 +72,52 @@ public class Vista_Inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
-        String rut = txt_Rut.getText();
-        if (rut.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Debe ingresar su rut para continuar", "Aviso", JOptionPane.WARNING_MESSAGE);
-            txt_Rut.requestFocus();
-        }
-        else if (rut.length() > 0 && rut.length() < 8){
+        String rut1 = txt_Rut.getText();
+        if (rut1.length() > 0) {
+            if(rut1.length() < 8) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un rut de 9 digitos\n para continuar", "Aviso", JOptionPane.WARNING_MESSAGE);
             txt_Rut.setText(null);
             txt_Rut.requestFocus();
-        }
-        else{
-            Vista_Reserva vr = new Vista_Reserva();
-            vr.setVisible(true);
-            this.dispose();
-        }
-        
+        } 
+            // Creamos un arreglo con el rut y el digito verificador
+            String[] rut_dv = rut1.split("-");
+            // Las partes del rut (numero y dv) deben tener una longitud positiva
+            if (rut_dv.length == 2) {
+                // Capturamos error (al convertir un string a entero)
+                try {
+                    int rut = Integer.parseInt(rut_dv[0]);
+                    char dv = rut_dv[1].charAt(0);
+                    ;
+                    // Validamos que sea un rut valido según la norma
+                    if (Capa_Modelo.ValidarRut.ValidarRut(rut, dv)) {
+                        JOptionPane.showMessageDialog(rootPane, "Rut correcto");
+                        Vista_Reserva vr = new Vista_Reserva();
+                        vr.setVisible(true);
+                        this.dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(rootPane, "Rut incorrecto");
+                    }
+                } catch (Exception ex) {
+                    System.out.println(" Error " + ex.getMessage());
+                }
 
+            }
+        }
+        else if (rut1.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar su rut para continuar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            txt_Rut.requestFocus();
+        } 
+        
         
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void txt_RutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_RutKeyTyped
 
-        char c = evt.getKeyChar();
-        if((c < '0' || c > '9'))evt.consume();
-        else if(txt_Rut.getText().length() >= 9)
-        {
-        evt.consume();
+//        char c = evt.getKeyChar();
+//        if(c < '0' || c > '9' || c < ' ')evt.consume();
+        if (txt_Rut.getText().length() >= 10) {
+            evt.consume();
         }
 
     }//GEN-LAST:event_txt_RutKeyTyped
