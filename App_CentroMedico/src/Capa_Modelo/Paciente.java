@@ -11,20 +11,31 @@ package Capa_Modelo;
  */
 public class Paciente {
     
+    int id_usuario;
     int Rut;
-    char dv;
+    int dv;
     String nombre;
     String apellido;
 
     public Paciente() {
     }
 
-    public Paciente(int Rut, char dv, String nombre, String apellido) {
+    public Paciente(int id_usuario, int Rut, int dv, String nombre, String apellido) {
+        this.id_usuario = id_usuario;
         this.Rut = Rut;
         this.dv = dv;
         this.nombre = nombre;
         this.apellido = apellido;
     }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
 
     public int getRut() {
         return Rut;
@@ -34,7 +45,7 @@ public class Paciente {
         this.Rut = Rut;
     }
 
-    public char getDv() {
+    public int getDv() {
         return dv;
     }
 

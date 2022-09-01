@@ -35,6 +35,8 @@ public class Vista_Inicial extends javax.swing.JFrame {
         btn_Ingresar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txt_Rut = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnRegistroIni = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,6 +66,18 @@ public class Vista_Inicial extends javax.swing.JFrame {
         });
         getContentPane().add(txt_Rut, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 130, -1));
 
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText("¿No estás registrado aún?");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+
+        btnRegistroIni.setText("Registrarme");
+        btnRegistroIni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroIniActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistroIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/folder/fondo-villagran.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 420));
@@ -78,7 +92,12 @@ public class Vista_Inicial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un rut de 9 digitos\n para continuar", "Aviso", JOptionPane.WARNING_MESSAGE);
             txt_Rut.setText(null);
             txt_Rut.requestFocus();
-        } 
+        }
+            if(rut1.contains("-") == false) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un rut válido\n para continuar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            txt_Rut.setText(null);
+            txt_Rut.requestFocus();
+        }
             // Creamos un arreglo con el rut y el digito verificador
             String[] rut_dv = rut1.split("-");
             // Las partes del rut (numero y dv) deben tener una longitud positiva
@@ -114,13 +133,19 @@ public class Vista_Inicial extends javax.swing.JFrame {
 
     private void txt_RutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_RutKeyTyped
 
-//        char c = evt.getKeyChar();
-//        if(c < '0' || c > '9' || c < ' ')evt.consume();
+        char c = evt.getKeyChar();
+        if(c > 'K' && c > '0')evt.consume();
         if (txt_Rut.getText().length() >= 10) {
             evt.consume();
         }
 
     }//GEN-LAST:event_txt_RutKeyTyped
+
+    private void btnRegistroIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroIniActionPerformed
+        Vista_Registro visregis = new Vista_Registro();
+        visregis.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistroIniActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,10 +183,12 @@ public class Vista_Inicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistroIni;
     public javax.swing.JButton btn_Ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txt_Rut;
     // End of variables declaration//GEN-END:variables
 }

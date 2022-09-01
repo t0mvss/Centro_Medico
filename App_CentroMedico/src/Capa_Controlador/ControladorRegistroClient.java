@@ -10,15 +10,14 @@ import Capa_Modelo.Paciente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tomas
  */
 public class ControladorRegistroClient {
-    
-    public class ControladorRegistro {
-    
     Connection con;
     Paciente p = new Paciente();
     Conexion cn = new Conexion();
@@ -35,12 +34,12 @@ public class ControladorRegistroClient {
             ps.setString(4, p.getNombre());
             ps.setString(5, p.getApellido());
             ps.execute();
-            
-        } catch (Exception e) {
-        }
-        return false;
-    }
-    
-}
-    
+            return true;
+            } 
+        catch (SQLException e) {
+            e.getMessage();
+            return false;
+            }
+        
+    }   
 }
